@@ -413,7 +413,7 @@ class MessagePrint():
 class ImagemagickWrapper():
     @staticmethod
     def mogrify(options: list, path: pathlib.PurePath, temp_path=None, messageprint=None, message='mogrify', dry_run=False):
-        cmd = ['/usr/bin/mogrify']
+        cmd = ['mogrify']
         cmd.extend(map(lambda x: str(x), options))
         if temp_path is not None:
             cmd.extend(['-define', 'registry:temporary-path=' + str(temp_path.resolve())])
@@ -426,7 +426,7 @@ class ImagemagickWrapper():
     @staticmethod
     def get_identify(format_list: list, path: pathlib.PurePath):
         format = '\n'.join(list(map(lambda x: '{0}\t%[{0}]'.format(x), format_list)))
-        cmd = ['/usr/bin/identify', '-quiet', '-format', format, str(path.resolve())]
+        cmd = ['identify', '-quiet', '-format', format, str(path.resolve())]
         stdout = subprocess.run(cmd, shell=False, stdout=subprocess.PIPE, text=True, check=True).stdout
         lines = stdout.splitlines()
         meta_data = {}
